@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+.Signup{
+    background-color: #333;
+    width: 75%;
+    height: 60%;
+    font-family: 'Michroma';
+    padding:2rem;
+
+    display: flex;
+    flex-direction: column;
+    gap:.5rem;
+}
+.Signup h1{
+    color:#fff;
+    text-align: center;
+}
+.Fullname{
+    display:flex;
+    gap:.5rem;
+}
+.Fname, .Lname{
+    display: flex;
+    flex-direction: column;
+    gap:.5rem;
+    width: 50%;
+}
+.Signup input[type="text"], .Signup input[type="password"]{
+    font-family: 'Michroma';
+    padding: .5rem .25rem;
+    background-color: #ffffff50;
+    color:#fff;
+}
+.Signup label{
+    color:#fff;
+}
+.Email{
+    display: flex;
+    gap:.5rem;
+    flex-direction: column;
+    width:100%;
+}
+.Signup button{
+    width:100%;
+    background-color: #549DD2;
+    color:#fff;
+    padding:.5rem 0;
+    text-align: center;
+    font-family: 'Michroma';
+}

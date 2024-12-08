@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+
+.Nav{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+}
+.Logo{
+    display: flex;
+    align-items: center;
+    gap:.5rem;
+}
+.Nav span{
+    font-family: 'Michroma';
+    font-size: 125%;
+}
+.Details{
+    display: flex;
+    gap:1rem;
+}
+.Details button{
+    font-family: 'Michroma';
+    background: none;
+    padding:.5rem 1rem;
+    font-size: 105%;
+}
+.Details button:nth-child(2){
+    background-color: #333;
+    color:#fff;
+}
+.Name{
+    display: flex;
+    gap:1rem;
+    align-items: center;
+}
+
+.Name img{
+    width:3rem;
+    border-radius: 50%;
+}
+.Name span{
+    font-size: 100%;
+}
