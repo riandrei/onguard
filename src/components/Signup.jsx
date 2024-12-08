@@ -1,6 +1,6 @@
 import styles from '../css/Signup.module.css'
 
-const Signup = () => {
+const Signup = ({navCount, handleNavClick}) => {
     return(
         <div className={styles.Signup}>
             <h1>Create your account</h1>
@@ -32,6 +32,7 @@ const Signup = () => {
                 </div>
             </div>
             <button>SUBMIT</button>
+            <button onClick={() => handleNavClick(0)} className={styles.Close}>CLOSE</button>
 
         </div>
     )

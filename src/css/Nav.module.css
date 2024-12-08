@@ -43,3 +43,12 @@
 .Name span{
     font-size: 100%;
 }
+
+@media(max-width:431px){
+    .Nav{
+        padding:.75rem 1rem;
+    }
+    .Logo span{
+        display: none;
+    }
+}

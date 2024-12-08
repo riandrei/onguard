@@ -6,7 +6,7 @@ import styles from '../css/Nav.module.css'
 import Logo from '../assets/MainLogo.png'
 import Miko from '../assets/Miko.jpg'
 
-const Nav = () => {
+const Nav = ({navCount, handleNavClick}) => {
 
     const [isLogin, setIsLogin] = useState(true)
 
@@ -21,7 +21,7 @@ const Nav = () => {
                 isLogin ? (
                     <div className={styles.Details}>
                         <button>Log In</button>
-                        <button>Sign Up</button>
+                        <button onClick={() => handleNavClick(1)}>Sign Up</button>
                     </div>
                 ): (
                     <div className={styles.Name}>

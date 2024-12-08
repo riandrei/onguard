@@ -1,14 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
 .Signup{
     background-color: #333;
-    width: 75%;
-    height: 60%;
+    width: 100%;
+    height: fit-content;
     font-family: 'Michroma';
     padding:2rem;
 
     display: flex;
     flex-direction: column;
     gap:.5rem;
+    filter: blur(10px);
+    opacity: 0;
+    transform: translateY(-5rem);
+    position: fixed;
+    margin: 0 auto;
+    animation:Popup 1000ms ease forwards;
+}
+
+@keyframes Popup{
+    from{}
+    to{
+        filter: blur(0);
+        opacity: 1;
+        transform: translate(0);
+    }
 }
 .Signup h1{
     color:#fff;
@@ -46,4 +61,13 @@
     padding:.5rem 0;
     text-align: center;
     font-family: 'Michroma';
+}
+@media(max-width:431px){
+    .Fname, .Lname{
+        width:100%;
+    }
+    .Fullname{
+        display: flex;
+        flex-direction: column;
+    }
 }
