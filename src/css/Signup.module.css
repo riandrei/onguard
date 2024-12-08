@@ -13,7 +13,6 @@
     opacity: 0;
     transform: translateY(-5rem);
     position: fixed;
-    margin: 0 auto;
     animation:Popup 1000ms ease forwards;
 }
 

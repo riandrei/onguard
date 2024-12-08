@@ -20,7 +20,7 @@ const Nav = ({navCount, handleNavClick}) => {
             {
                 isLogin ? (
                     <div className={styles.Details}>
-                        <button>Log In</button>
+                        <button onClick={() => handleNavClick(2)}>Log In</button>
                         <button onClick={() => handleNavClick(1)}>Sign Up</button>
                     </div>
                 ): (
