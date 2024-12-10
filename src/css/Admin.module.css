@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.Admin{
+    display: flex;
+    gap:1rem;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #F0F0F0;
+}
+.Admin_body{
+    display: flex;
+    gap:1rem;
+    height: 100%;
+    padding:2rem;
+}
+.Admin_nav, .Admin_content{
+    background-color: #fff;
+}
+
+.Admin_nav{
+    width:15%;
+    height:90%;
+    border-radius: 25px;
+    padding:2rem 0;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.Admin_inner{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap:2rem;
+}
+.Admin_link{
+    display: flex;
+    align-items: center;
+    gap:.75rem;
+}
+.Admin_link img{
+    width:40px;
+    height:40px;
+}
+.Admin_link span{
+    font-family: 'Montserrat';
+}
+.Out{
+    width:48px;
+}

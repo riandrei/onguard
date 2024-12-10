@@ -3,6 +3,7 @@ import { useState } from "react"
 import Nav from './components/Nav'
 import Landing from "./pages/Landing"
 import Profile from "./pages/Profile"
+import Admin from './pages/Admin'
 
 const App  = ()=> {
 
@@ -17,6 +18,7 @@ const App  = ()=> {
         <Routes>
             <Route path="/" element={<Landing navCount={navCount} handleNavClick={handleNavClick} />}/>
             <Route path="/Profile" element={<Profile/>} />
+            <Route path="/Admin" element={<Admin/>} />
         </Routes>
       </Router>
     </div>

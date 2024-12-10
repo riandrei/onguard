@@ -8,7 +8,7 @@ import Miko from '../assets/Miko.jpg'
 
 const Nav = ({navCount, handleNavClick}) => {
 
-    const [isLogin, setIsLogin] = useState(true)
+    const [isLogin, setIsLogin] = useState(false)
 
     return(
         <div className={styles.Nav}>
