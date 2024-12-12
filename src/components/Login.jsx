@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { signIn } from "../lib/firebase"; // Import the signIn function from firebase
 import styles from "../css/Login.module.css";
 import PropTypes from "prop-types";
@@ -6,6 +7,7 @@ import PropTypes from "prop-types";
 const Login = ({ handleNavClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,6 +16,7 @@ const Login = ({ handleNavClick }) => {
       await signIn(email, password); // Call the signIn function with email and password
       console.log("User logged in successfully");
       // Redirect or show success message here
+      navigate("/admin");
     } catch (error) {
       console.error("Error logging in:", error.message);
     }

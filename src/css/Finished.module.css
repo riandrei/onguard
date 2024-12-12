@@ -1,0 +1,17 @@
+.Finished{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:.75rem 1rem;
+    background-color: #f0f0f0;
+    font-family: 'Montserrat';
+}
+.Name{
+    display: flex;
+    align-items: center;
+    gap:.5rem;
+}
+.Finished img{
+    width:2rem;
+    border-radius: 50%;
+}

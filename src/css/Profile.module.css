@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+.Profile{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Michroma';
+
+}
+.Profile_body{
+    display: flex;
+    align-items: center;
+
+}
+.Profile_left{
+    display: flex;
+    flex-direction: column;
+    width:25%;
+    gap:.75rem;
+    align-items: center;
+
+}
+
+.Profile_left img{
+    width: 50%;
+    border-radius: 50%;
+}
+
+.Profile_left input{
+    display: none;
+}
+
+.Profile_left button{
+    background: none;
+    color:#940000;
+    font-family: 'Michroma';
+}
+.Profile_right{
+    width:100%;
+    padding:2rem;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+}
+.Profile_right span{
+    font-size: 125%;
+}
+.Password{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    gap:.5rem;
+}
+.Password_inner{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    gap:1rem;
+}
+
+.Password_inner2{
+    width:50%;
+    display: flex;
+    flex-direction: column;
+    gap:.5rem;
+}
+.Password_inner3{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    gap:.5rem;
+}
+.Password_inner3 input{
+    background-color: #33333350;
+    padding:.5rem 1rem;
+    font-size: 125;
+}
+.Password_inner2 input{
+    background-color: #33333350;
+    padding:.5rem 1rem;
+}
+
+.Save{
+    display: flex;
+    gap:.5rem;
+}
+
+.Save button{
+    width:20%;
+    padding:.5rem;
+    background-color: #549DD2;
+    color:#fff;
+}
+.Save button:nth-child(2){
+    border: solid 1px #549DD2;
+    background-color: #fff;
+    color:#549DD2;
+}
+
+@media(max-width:431px){
+    .Profile_body{
+        flex-direction: column;
+    }
+    .Profile_left{
+        width:100%;
+    }
+    .Profile_left img{
+        width:50%;
+    }
+    .Password_inner, .Password_inner2{
+        flex-direction: column;
+        width:100%;
+    }
+}

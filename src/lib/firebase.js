@@ -3,6 +3,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut, // Import signOut for logging out
 } from "firebase/auth";
 
 // Your Firebase configuration object (Replace with your actual Firebase config)
@@ -51,5 +52,15 @@ const signIn = async (email, password) => {
   }
 };
 
-// Export auth, signUp, and signIn functions
-export { auth, signUp, signIn };
+// Sign-out function
+const logOut = async () => {
+  try {
+    await signOut(auth);
+    console.log("User logged out successfully");
+  } catch (error) {
+    console.error("Error logging out:", error.message);
+  }
+};
+
+// Export auth, signUp, signIn, and logOut functions
+export { auth, signUp, signIn, logOut };

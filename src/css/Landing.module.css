@@ -5,3 +5,11 @@
     border:none;
     outline:none;
 }
+.Body{
+
+}
+.part1{
+    background-image: url(../assets/LandingBG.jpg);
+    background-position: center;
+    background-size: cover;
+}
