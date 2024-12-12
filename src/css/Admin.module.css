@@ -3,7 +3,6 @@
 
 .Admin{
     display: flex;
-    gap:1rem;
     flex-direction: column;
     height: 100vh;
     background-color: #F0F0F0;
@@ -12,10 +11,13 @@
     display: flex;
     gap:1rem;
     height: 100%;
-    padding:2rem;
+    padding:2rem 2rem;
 }
 .Admin_nav, .Admin_content{
     background-color: #fff;
+}
+.Admin_nav{
+    position: fixed;
 }
 
 .Admin_nav{
@@ -49,4 +51,87 @@
 }
 .Out{
     width:48px;
+}
+.Admin_content{
+    margin-left: 18%;
+    width:100%;
+    padding:2rem;
+
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap:1.5rem;
+    border-radius: 25px;
+}
+.Admin_right{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Name_container{
+    display: flex;
+    gap:.5rem;
+}
+
+.Name_container img{
+    width:5rem;
+    height:5rem;
+    border-radius: 50%;
+    border:solid 2px red;
+}
+.User_name{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Montserrat';
+    justify-content: center;
+
+}
+.User_name span, .Date{
+    line-height: 125%;
+}
+.User_name span:first-child{
+    font-size: 1.25em;
+}
+.User_name span:nth-child(2){
+    opacity: .75;
+    font-size: .85em;
+}
+
+.Date{
+    display: flex;
+    font-family: 'Montserrat';
+    flex-direction: column;
+    gap:.25rem;
+}
+.Location{
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    font-family: 'Montserrat';
+    height: fit-content;
+}
+
+.Location img{
+    width:100%;
+    border: solid 2px #33333350;
+    border-radius: 10px;
+}
+.Logo{
+    display: flex;
+    font-family: 'Michroma';
+    align-items: center;
+    gap:.25rem;
+    border-bottom: solid 1px #333;
+
+}
+.Logo img, .Logo span{
+    margin-bottom: 2rem;
+}
+@media(max-width:431px){
+    .Admin_nav{
+        display: none;
+    }
+    .Admin_body{
+        padding:.75em;
+    }
 }
