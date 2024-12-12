@@ -38,9 +38,20 @@
     height: 10px;
     width:10px;
     border-radius:50% ;
-    background-color: green;
 }
 
+.Medical{
+    background-color: red;
+}
+.Crime{
+    background-color: #333;
+}
+.Fire{
+    background-color: orange;
+}
+.Legal{
+    background-color: green;
+}
 .Sort{
     display: flex;
     border: solid 1px #333;
@@ -49,10 +60,10 @@
 .Sort button{
     font-family: 'Michroma';
     padding:.5rem 1rem;
-    background: none;
 }
 .Selected{
     background-color: #333;
+    color:#fff;
 }
 .Pendings{
     display: flex;

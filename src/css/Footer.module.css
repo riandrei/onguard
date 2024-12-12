@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+.Footer{
+    display: flex;
+    flex-direction: column;
+    gap:.75rem;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    padding:1rem 0;
+    position: absolute;
+    width:100%;
+    bottom:0;
+}
+
+.Logo{
+    display: flex;
+    gap:.5rem;
+    align-items: center;
+    font-family: 'Michroma';
+    color:#fff;
+}
+
+.Logo img{
+    width:3.5rem;
+}
+.FootLinks{
+    display: flex;
+    gap:.25rem;
+    align-items: center;
+    font-family: 'Michroma';
+    font-size: .75em;
+    color:#fff;
+}
+.FootLinks span{
+    cursor: pointer;
+}

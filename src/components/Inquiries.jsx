@@ -1,8 +1,14 @@
+import { useState } from 'react'
 import styles from '../css/Inquiries.module.css'
 
 import Pendings from './Pendings'
 
 const Inquiries = () => {
+    const [selectedButton, setSelectedButton] = useState('Recent');
+
+    const handleClick = (buttonName) => {
+      setSelectedButton(buttonName);
+    };
     return(
         <div className={styles.Inquiries}>
 
@@ -34,9 +40,19 @@ const Inquiries = () => {
                 </div>
 
                 <div className={styles.Sort}>
-                    <button className={styles.Selected}>Recent</button>
-                    <button>Oldest</button>
-                </div>
+                    <button
+                        className={selectedButton === 'Recent' ? styles.Selected : ''}
+                        onClick={() => handleClick('Recent')}
+                    >
+                        Recent
+                    </button>
+                    <button
+                        className={selectedButton === 'Oldest' ? styles.Selected : ''}
+                        onClick={() => handleClick('Oldest')}
+                    >
+                        Oldest
+                    </button>
+                    </div>
             </div>
             
             <div className={styles.Pendings}>

@@ -3,6 +3,7 @@ import styles from '../css/Landing.module.css'
 import Nav from '../components/Nav'
 import Signup from '../components/Signup'
 import Login from '../components/Login'
+import Footer from '../components/Footer'
 
 const Landing = ({handleNavClick, navCount}) => {
     return(
@@ -16,6 +17,7 @@ const Landing = ({handleNavClick, navCount}) => {
             {
                 navCount === 2 && <Login navCount={navCount} handleNavClick={handleNavClick} />
             }
+            <Footer />
         </div>
     )
 }
