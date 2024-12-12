@@ -17,6 +17,10 @@ const Landing = ({handleNavClick, navCount}) => {
             {
                 navCount === 2 && <Login navCount={navCount} handleNavClick={handleNavClick} />
             }
+
+            <div className={styles.Body}>
+
+            </div>
             <Footer />
         </div>
     )
