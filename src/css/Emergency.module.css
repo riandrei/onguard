@@ -1,0 +1,80 @@
+.Emergency{
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    color:#fff;
+    padding:2rem;
+    width:90%;
+    margin: 0 auto;
+    border-radius: 25px;
+}
+.Head{
+    display: flex;
+    font-family: 'Michroma';
+    align-items: center;
+    justify-content: space-between;
+}
+.Head img{
+    width:32px;
+    height:32px;
+}
+.Location_details h2{
+    font-family: 'Michroma';
+    font-size: 1em;
+}
+.Emergency_inner{
+    display: flex;
+    gap:1rem;
+    width: 100%;
+    justify-content: space-between;
+}
+.Location_details{
+    width:60%;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    padding:1rem 0;
+}
+.Location_details textarea{
+    background-color: #ffffff25;
+    resize: none;
+    height: 100%;
+    width: 100%;
+    color:#fff;
+    padding:.5rem;
+    font-size: 1.25em;
+}
+.Location{
+    width: 40%;
+}
+.End{
+    display: flex;
+    justify-content: center;
+    gap:1rem;
+}
+.End img{
+    width:62px;
+    height: 62px;
+}
+
+@media(max-width:431px){
+    .Head h1{
+        font-size: 1em;
+    }
+    .Head img{
+        width:22px;
+        height:22px;
+    }
+    .Emergency_inner{
+        flex-direction:column;
+    }
+    .Location, .Location_details{
+        width:100%
+    }
+    .End img{
+        width:32px;
+        height:32px;
+    }
+
+}

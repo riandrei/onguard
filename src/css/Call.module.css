@@ -1,0 +1,18 @@
+.Call{
+    z-index: 99;
+    background-color: #e41919;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding:1rem;
+    border-radius: 50%;
+    transition: all 350ms;
+    cursor: pointer;
+}
+
+.Call img{
+    width:2rem;
+}
+.Call:hover{
+    scale: 1.25;
+}

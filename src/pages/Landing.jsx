@@ -4,8 +4,9 @@ import Nav from '../components/Nav'
 import Signup from '../components/Signup'
 import Login from '../components/Login'
 import Footer from '../components/Footer'
+import Emergency from '../components/Emergency'
 
-const Landing = ({handleNavClick, navCount}) => {
+const Landing = ({handleNavClick, navCount, openCall, setOpenCall, handleCallClick}) => {
     return(
         <div className={styles.Landing}>
             <Nav navCount={navCount} handleNavClick={handleNavClick} />
@@ -21,7 +22,9 @@ const Landing = ({handleNavClick, navCount}) => {
             <div className={styles.Body}>
 
             </div>
-            <Footer />
+            {
+                openCall && <Emergency handleCallClick={handleCallClick} />
+            }
         </div>
     )
 }
