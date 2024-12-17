@@ -5,20 +5,36 @@ import {
   signInWithEmailAndPassword,
   signOut, // Import signOut for logging out
 } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+import { getMessaging } from "firebase/messaging";
 
-// Your Firebase configuration object (Replace with your actual Firebase config)
 const firebaseConfig = {
-  apiKey: "AIzaSyCqrn-e2_GrCFtOcKmqpS0lcHz8q1hywPk",
-  authDomain: "onguard-2efb2.firebaseapp.com",
-  projectId: "onguard-2efb2",
-  storageBucket: "onguard-2efb2.firebasestorage.app",
-  messagingSenderId: "920417692001",
-  appId: "1:920417692001:web:6940353bdc60a5d2d1bd20",
-  measurementId: "G-G06WXCDFDX",
+  apiKey: "AIzaSyALVsuSWiP_fwDbscLQ3zaE5RQmjjBXUMo",
+
+  authDomain: "onguard-6f7cb.firebaseapp.com",
+
+  databaseURL:
+    "https://onguard-6f7cb-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+  projectId: "onguard-6f7cb",
+
+  storageBucket: "onguard-6f7cb.firebasestorage.app",
+
+  messagingSenderId: "245232388429",
+
+  appId: "1:245232388429:web:93721d2372bf679b574f04",
+
+  measurementId: "G-GXZTMXXWKT",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const firestore = getFirestore(app);
+const storage = getStorage(app);
+
+// Initialize Messaging
+const messaging = getMessaging(app);
 
 // Get Auth instance
 const auth = getAuth(app);
@@ -63,4 +79,4 @@ const logOut = async () => {
 };
 
 // Export auth, signUp, signIn, and logOut functions
-export { auth, signUp, signIn, logOut };
+export { auth, signUp, signIn, logOut, firestore, storage, messaging };
