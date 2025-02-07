@@ -3,9 +3,13 @@
   width: 80%;
   font-family: Arial, sans-serif;
 }
+.PostsList ul, .PostsList li{
+  list-style: none;
+}
 
 .PostsList h2 {
   text-align: center;
+  font-family: 'Michroma'
 }
 
 .Post {
@@ -19,6 +23,7 @@
 
 .Post h3 {
   margin: 0 0 10px;
+  color:#333;
 }
 
 .Post p {

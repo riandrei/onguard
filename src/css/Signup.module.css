@@ -14,6 +14,7 @@
     transform: translateY(-5rem);
     position: fixed;
     animation:Popup 1000ms ease forwards;
+
 }
 
 @keyframes Popup{
@@ -23,6 +24,11 @@
         opacity: 1;
         transform: translate(0);
     }
+}
+.Forms{
+    display:flex;
+    flex-direction: column;
+    gap:.5rem;
 }
 .Signup h1{
     color:#fff;
@@ -38,7 +44,7 @@
     gap:.5rem;
     width: 50%;
 }
-.Signup input[type="text"], .Signup input[type="password"]{
+.Signup input[type="text"], .Signup input[type="password"], .Signup input[type="email"]{
     font-family: 'Michroma';
     padding: .5rem .25rem;
     background-color: #ffffff50;

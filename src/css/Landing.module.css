@@ -5,8 +5,10 @@
     border:none;
     outline:none;
 }
-.Body{
 
+.Landing{
+    padding-botton: 3rem;
+    position:relative;
 }
 .part1{
     background-image: url(../assets/LandingBG.jpg);

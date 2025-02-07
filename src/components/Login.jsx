@@ -25,7 +25,7 @@ const Login = ({ handleNavClick }) => {
   return (
     <div className={styles.Login}>
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form className={styles.Form} onSubmit={handleSubmit}>
         <div className={styles.Email}>
           <label>Email:</label>
           <input

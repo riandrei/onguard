@@ -37,7 +37,7 @@ const Landing = ({
       </div>
 
       {/* Footer Component */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

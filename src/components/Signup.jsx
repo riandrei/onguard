@@ -30,7 +30,7 @@ const Signup = ({ handleNavClick }) => {
   return (
     <div className={styles.Signup}>
       <h1>Create your account</h1>
-      <form onSubmit={handleSubmit}>
+      <form className={styles.Forms} onSubmit={handleSubmit}>
         <div className={styles.Fullname}>
           <div className={styles.Fname}>
             <label>First Name:</label>
