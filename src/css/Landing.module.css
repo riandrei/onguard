@@ -8,10 +8,56 @@
 
 .Landing{
     padding-botton: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
     position:relative;
 }
 .part1{
     background-image: url(../assets/LandingBG.jpg);
     background-position: center;
     background-size: cover;
+}
+.Disaster{
+    display: flex;
+
+    align-items: center;
+    padding:1rem;
+    justify-content: space-around;
+}
+.Disaster img{
+    width: 30%;
+    transform: translateY(1rem);
+    animation: bounce 1500ms ease forwards alternate-reverse infinite;
+}
+
+@keyframes bounce{
+    from{}
+    to{
+        transform: translate(0);
+    }
+}
+.Disaster_inner{
+    display: flex;
+    flex-direction: column;
+    gap:.5rem;
+    width: 40%;
+}
+.Disaster_inner span{
+    text-transform: capitalize;
+}
+.Caps{
+    font-size: 2em;
+    font-family: 'Montserrat';
+    line-height: 1em;
+    font-weight: bolder;
+    color:#333;
+}
+.Smol{
+    font-size: 1.25em;
+    font-family: 'Montserrat';
+}
+.Line{
+    width:20%;
+    margin:0 auto;
 }
