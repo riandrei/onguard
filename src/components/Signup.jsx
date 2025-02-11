@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signUp } from "../lib/firebase"; // Import the signUp function from firebase
+import { signUp } from "../lib/firebase";
 import styles from "../css/Signup.module.css";
 import PropTypes from "prop-types";
 
@@ -13,17 +13,16 @@ const Signup = ({ handleNavClick }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if passwords match
-    if (password === confirmPassword) {
-      try {
-        await signUp(email, password); // Call the signUp function with email and password
-        console.log("User signed up successfully");
-        // You can redirect or show success message here
-      } catch (error) {
-        console.error("Error signing up:", error.message);
-      }
-    } else {
+    if (password !== confirmPassword) {
       console.error("Passwords do not match!");
+      return;
+    }
+
+    try {
+      await signUp(email, password, firstName, lastName);
+      console.log("User signed up successfully!");
+    } catch (error) {
+      console.error("Error signing up:", error.message);
     }
   };
 
@@ -40,7 +39,6 @@ const Signup = ({ handleNavClick }) => {
               onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
-
           <div className={styles.Lname}>
             <label>Last Name:</label>
             <input
@@ -50,6 +48,7 @@ const Signup = ({ handleNavClick }) => {
             />
           </div>
         </div>
+
         <div className={styles.Email}>
           <label>Email Address:</label>
           <input
@@ -68,7 +67,6 @@ const Signup = ({ handleNavClick }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-
           <div className={styles.Lname}>
             <label>Confirm password:</label>
             <input
@@ -78,6 +76,7 @@ const Signup = ({ handleNavClick }) => {
             />
           </div>
         </div>
+
         <button type="submit">SUBMIT</button>
       </form>
       <button onClick={() => handleNavClick(0)} className={styles.Close}>

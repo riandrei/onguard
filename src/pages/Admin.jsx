@@ -13,9 +13,11 @@ import Complete from "../assets/Complete.png";
 import Inquiries from "../components/Inquiries";
 import Publish from "../components/Publish";
 import Completed from "../components/Completed";
+import Nav from "../components/Nav";
 
 const Admin = () => {
   const [navCount, setNavCount] = useState(1);
+  const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
 
   const handleNavClick = (value) => {
@@ -26,6 +28,7 @@ const Admin = () => {
     try {
       await logOut();
       console.log("User logged out successfully");
+      setIsLogin(false);
       navigate("/");
     } catch (error) {
       console.error("Error logging out:", error.message);
@@ -34,6 +37,8 @@ const Admin = () => {
 
   return (
     <div className={styles.Admin}>
+      <Nav isLogin={isLogin} handleNavClick={handleNavClick} />
+
       <div className={styles.Admin_body}>
         <div className={styles.Admin_nav}>
           <div className={styles.Admin_inner}>
@@ -67,14 +72,15 @@ const Admin = () => {
             </div>
           </div>
 
-          {/* Logout Button */}
-          <img
-            className={styles.Out}
-            src={Logout}
-            alt="Logout"
-            onClick={handleLogout}
-            style={{ cursor: "pointer" }}
-          />
+          {isLogin && (
+            <img
+              className={styles.Out}
+              src={Logout}
+              alt="Logout"
+              onClick={handleLogout}
+              style={{ cursor: "pointer" }}
+            />
+          )}
         </div>
 
         {navCount === 1 && <Inquiries />}
