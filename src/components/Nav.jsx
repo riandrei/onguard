@@ -3,7 +3,7 @@ import styles from "../css/Nav.module.css";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import Logo from "../assets/MainLogo.png";
 import DefaultProfile from "../assets/user.png";
@@ -13,6 +13,7 @@ const Nav = ({ isLogin, handleNavClick }) => {
   const location = useLocation();
   const [firstName, setFirstName] = useState("");
   const [userPhoto, setUserPhoto] = useState(DefaultProfile);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const auth = getAuth();
@@ -51,11 +52,22 @@ const Nav = ({ isLogin, handleNavClick }) => {
     };
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user); // Store user state
       fetchUserData(user);
     });
 
     return () => unsubscribe();
   }, [location]);
+
+  const handleLogout = async () => {
+    const auth = getAuth();
+    try {
+      await signOut(auth);
+      navigate("/"); // Redirect to home after logout
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
 
   const isProfilePage = location.pathname === "/profile";
 
@@ -65,21 +77,27 @@ const Nav = ({ isLogin, handleNavClick }) => {
         <img src={Logo} alt="On-Guard Logo" />
         <span>On-Guard</span>
       </div>
-      {isLogin && !isProfilePage ? (
-        <div
-          className={styles.Name}
-          onClick={() => navigate("/profile")}
-          style={{ cursor: "pointer" }}
-        >
-          <span>{firstName || "Guest"}</span>
-          <img src={userPhoto} alt="User Profile" />
+
+      {user ? ( // If user is logged in, show profile and logout button
+        <div className={styles.Details}>
+          {!isProfilePage && (
+            <div
+              className={styles.Name}
+              onClick={() => navigate("/profile")}
+              style={{ cursor: "pointer" }}
+            >
+              <span>{firstName || "Guest"}</span>
+              <img src={userPhoto} alt="User Profile" />
+            </div>
+          )}
+          <button onClick={handleLogout}>Logout</button>
         </div>
-      ) : !isLogin && !isProfilePage ? (
+      ) : !isProfilePage ? ( // If no user, show login/signup buttons
         <div className={styles.Details}>
           <button onClick={() => handleNavClick(2)}>Log In</button>
           <button onClick={() => handleNavClick(1)}>Sign Up</button>
         </div>
-      ) : null}{" "}
+      ) : null}
     </div>
   );
 };
