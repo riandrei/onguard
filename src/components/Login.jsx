@@ -7,16 +7,22 @@ import PropTypes from "prop-types";
 const Login = ({ handleNavClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await signIn(email, password); // Call the signIn function with email and password
+      const response = await signIn(email, password); // Call the signIn function with email and password
       console.log("User logged in successfully");
-      // Redirect or show success message here
-      navigate("/admin");
+      console.log(response);
+
+      if (response.role === "admin") {
+        navigate("/admin");
+      } else {
+        setShowPopup(true); // Show success popup for users
+      }
     } catch (error) {
       console.error("Error logging in:", error.message);
     }
@@ -46,6 +52,16 @@ const Login = ({ handleNavClick }) => {
         <button type="submit">SUBMIT</button>
       </form>
       <button onClick={() => handleNavClick(0)}>CLOSE</button>
+
+      {/* Success Popup */}
+      {showPopup && (
+        <div className={styles.Popup}>
+          <div className={styles.PopupContent}>
+            <p>Login successful!</p>
+            <button onClick={() => setShowPopup(false)}>OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -30,10 +30,30 @@ const BarangayCall = ({ callId }) => {
 
     const client = new StreamVideoClient({ apiKey, user, token });
     setClient(client);
+
     const call = client.call("default", callId);
     setCall(call);
-    call.join();
-  }, []);
+
+    call.join({ create: true });
+
+    // Listen for call end
+    const handleCallEnd = () => {
+      console.log("Call ended. Leaving...");
+      call.leave();
+      setCall(null); // Remove call instance
+    };
+
+    call.on("call.ended", handleCallEnd);
+
+    // Cleanup on unmount
+    return () => {
+      call.off("call.ended", handleCallEnd);
+      call.leave(); // Leave call
+      client.disconnectUser(); // Disconnect client
+      setClient(null);
+    };
+  }, [callId]);
+
   return (
     <StreamVideo client={client}>
       <StreamCall call={call}>

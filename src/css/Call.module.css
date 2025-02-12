@@ -1,18 +1,48 @@
-.Call{
-    z-index: 99;
-    background-color: #e41919;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    padding:1rem;
-    border-radius: 50%;
-    transition: all 350ms;
-    cursor: pointer;
+.Call {
+  z-index: 99;
+  background-color: #e41919;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 1rem;
+  border-radius: 50%;
+  transition: all 350ms;
+  cursor: pointer;
 }
 
-.Call img{
-    width:2rem;
+.Call img {
+  width: 2rem;
 }
-.Call:hover{
-    scale: 1.25;
+.Call:hover {
+  scale: 1.25;
+}
+
+.Popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  z-index: 1000;
+}
+
+.PopupContent {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  color: black;
+}
+
+.Popup button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }

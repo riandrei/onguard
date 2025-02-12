@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import Logo from "../assets/MainLogo.png";
-import DefaultProfile from "../assets/Miko.jpg";
+import DefaultProfile from "../assets/user.png";
 
 const Nav = ({ isLogin, handleNavClick }) => {
   const navigate = useNavigate();

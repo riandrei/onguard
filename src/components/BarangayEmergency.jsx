@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, onSnapshot } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
 
 import BarangayCall from "./BarangayCall";
@@ -15,6 +15,7 @@ import Close from "../assets/close.png";
 
 const BarangayEmergency = ({ userId, callId, handleCallClick }) => {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleEndCall = async () => {
     try {
@@ -33,7 +34,7 @@ const BarangayEmergency = ({ userId, callId, handleCallClick }) => {
     if (userId) {
       const db = getDatabase(
         undefined,
-        "https://onguard-6f7cb-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        "https://onguard-60bc2-default-rtdb.asia-southeast1.firebasedatabase.app/"
       );
       const locationRef = ref(db, `locations/${userId}`);
       onValue(locationRef, (snapshot) => {
@@ -47,8 +48,41 @@ const BarangayEmergency = ({ userId, callId, handleCallClick }) => {
     }
   }, [userId]);
 
+  useEffect(() => {
+    if (callId) {
+      const emergencyRef = doc(firestore, "emergencies", callId);
+
+      // Listen for changes in the document
+      const unsubscribe = onSnapshot(emergencyRef, (snapshot) => {
+        const data = snapshot.data();
+        if (data && data.status === "completed") {
+          console.log("Emergency marked as completed. Ending call...");
+          setShowPopup(true); // Show popup when call ends
+        }
+      });
+
+      return () => unsubscribe(); // Cleanup listener on unmount
+    }
+  }, [callId]);
+
   return (
     <div className={styles.Emergency}>
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <h2>Call Ended</h2>
+            <p>The emergency call has been ended.</p>
+            <button
+              onClick={() => {
+                setShowPopup(false);
+                handleCallClick();
+              }}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
       <div className={styles.Head}>
         <h1>Emergency Call</h1>
         <img src={Close} onClick={handleCallClick} />
@@ -66,6 +100,37 @@ const BarangayEmergency = ({ userId, callId, handleCallClick }) => {
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .popup {
+          color: black;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+        .popup-content {
+          background: white;
+          padding: 20px;
+          border-radius: 10px;
+          text-align: center;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .popup-content button {
+          margin-top: 10px;
+          padding: 10px 20px;
+          background: #ff4d4d;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      `}</style>
     </div>
   );
 };

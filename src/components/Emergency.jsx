@@ -6,7 +6,16 @@ import {
   serverTimestamp,
   onValue,
 } from "firebase/database";
-import { doc, collection, setDoc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  setDoc,
+  updateDoc,
+  onSnapshot,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { firestore } from "../lib/firebase";
 
@@ -33,6 +42,7 @@ const Emergency = ({ handleCallClick }) => {
   const [watchId, setWatchId] = useState(null);
   const [userId, setUserId] = useState(null);
   const [emergencyId, setEmergencyId] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const startTracking = () => {
     if (!navigator.geolocation) {
@@ -84,7 +94,7 @@ const Emergency = ({ handleCallClick }) => {
 
     const db = getDatabase(
       undefined,
-      "https://onguard-6f7cb-default-rtdb.asia-southeast1.firebasedatabase.app/"
+      "https://onguard-60bc2-default-rtdb.asia-southeast1.firebasedatabase.app/"
     );
     const locationRef = ref(db, `locations/${user.uid}`);
 
@@ -134,7 +144,7 @@ const Emergency = ({ handleCallClick }) => {
     if (userId) {
       const db = getDatabase(
         undefined,
-        "https://onguard-6f7cb-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        "https://onguard-60bc2-default-rtdb.asia-southeast1.firebasedatabase.app/"
       );
       const locationRef = ref(db, `locations/${userId}`);
       onValue(locationRef, (snapshot) => {
@@ -150,26 +160,57 @@ const Emergency = ({ handleCallClick }) => {
 
   useEffect(() => {
     const initializeEmergencyDoc = async () => {
-      const emergencyDoc = doc(collection(firestore, "emergencies"));
+      if (!userId) return;
 
-      setEmergencyId(emergencyDoc.id);
-      await setDoc(emergencyDoc, {
-        userId,
-        status: "ongoing",
-        timestamp: Date.now(),
-      });
-      console.log(emergencyDoc.id);
+      const emergenciesRef = collection(firestore, "emergencies");
+      const q = query(
+        emergenciesRef,
+        where("userId", "==", userId),
+        where("status", "==", "ongoing")
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        // An ongoing emergency already exists, use its ID
+        const existingEmergency = querySnapshot.docs[0];
+        setEmergencyId(existingEmergency.id);
+        console.log("Existing emergency:", existingEmergency.id);
+      } else {
+        // No ongoing emergency, create a new one
+        const emergencyDoc = doc(emergenciesRef);
+        setEmergencyId(emergencyDoc.id);
+        await setDoc(emergencyDoc, {
+          userId,
+          status: "ongoing",
+          timestamp: Date.now(),
+        });
+        console.log("New emergency created:", emergencyDoc.id);
+      }
     };
 
-    if (userId) {
-      console.log("User ID:", userId);
-      initializeEmergencyDoc();
-    }
+    initializeEmergencyDoc();
   }, [userId]);
 
   useEffect(() => {
     setIsCalling(true);
   }, []);
+
+  useEffect(() => {
+    if (emergencyId) {
+      const emergencyRef = doc(firestore, "emergencies", emergencyId);
+
+      // Listen for changes in the document
+      const unsubscribe = onSnapshot(emergencyRef, (snapshot) => {
+        const data = snapshot.data();
+        if (data && data.status === "completed") {
+          console.log("Emergency marked as completed. Ending call...");
+          setShowPopup(true); // Show popup when call ends
+        }
+      });
+
+      return () => unsubscribe(); // Cleanup listener on unmount
+    }
+  }, [emergencyId]);
 
   const handleEndCall = async () => {
     try {
@@ -178,13 +219,30 @@ const Emergency = ({ handleCallClick }) => {
         await updateDoc(emergencyRef, { status: "completed" });
         console.log(`Emergency ${emergencyId} marked as completed.`);
       }
-      handleCallClick();
+
+      handleCallClick(); // Assuming this updates UI state
     } catch (error) {
       console.error("Error updating emergency status:", error);
     }
   };
   return (
     <div className={styles.Emergency}>
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <h2>Call Ended</h2>
+            <p>The emergency call has been ended.</p>
+            <button
+              onClick={() => {
+                setShowPopup(false);
+                handleCallClick();
+              }}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
       <div className={styles.Head}>
         <h1>Emergency Call</h1>
         <img src={Close} onClick={handleCallClick} />
@@ -206,6 +264,37 @@ const Emergency = ({ handleCallClick }) => {
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .popup {
+          color: black;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+        .popup-content {
+          background: white;
+          padding: 20px;
+          border-radius: 10px;
+          text-align: center;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .popup-content button {
+          margin-top: 10px;
+          padding: 10px 20px;
+          background: #ff4d4d;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      `}</style>
     </div>
   );
 };

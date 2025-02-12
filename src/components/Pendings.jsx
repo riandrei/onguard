@@ -1,10 +1,16 @@
 import { doc, updateDoc } from "firebase/firestore";
-import { firestore } from "../lib/firebase";
+import { firestore, getUserInfo } from "../lib/firebase";
 
 import styles from "../css/Pendings.module.css";
-import Miko from "../assets/Miko.jpg";
+import User from "../assets/user.png";
+import { useEffect, useState } from "react";
+import { set } from "firebase/database";
 
 const Pendings = ({ handleViewClick, data }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [profileImg, setProfileImg] = useState(null);
+
   const handleEndCall = async (emergencyId) => {
     try {
       if (emergencyId) {
@@ -16,11 +22,20 @@ const Pendings = ({ handleViewClick, data }) => {
       console.error("Error updating emergency status:", error);
     }
   };
+
+  useEffect(() => {
+    getUserInfo(data.userId).then((user) => {
+      setProfileImg(user.profileImg);
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+    });
+  }, []);
+
   return (
     <div className={styles.Pendings}>
       <div className={styles.User}>
-        <img src={Miko} />
-        <span>Miko Oliva</span>
+        <img src={profileImg || User} />
+        <span>{`${firstName} ${lastName}`}</span>
       </div>
 
       <div className={styles.Buttons}>

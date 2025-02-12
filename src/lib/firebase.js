@@ -5,20 +5,31 @@ import {
   signInWithEmailAndPassword,
   signOut, // Import signOut for logging out
 } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getMessaging } from "firebase/messaging";
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyALVsuSWiP_fwDbscLQ3zaE5RQmjjBXUMo",
+//   authDomain: "onguard-6f7cb.firebaseapp.com",
+//   databaseURL:
+//     "https://onguard-6f7cb-default-rtdb.asia-southeast1.firebasedatabase.app",
+//   projectId: "onguard-6f7cb",
+//   storageBucket: "onguard-6f7cb.firebasestorage.app",
+//   messagingSenderId: "245232388429",
+//   appId: "1:245232388429:web:93721d2372bf679b574f04",
+//   measurementId: "G-GXZTMXXWKT",
+// };
+
 const firebaseConfig = {
-  apiKey: "AIzaSyALVsuSWiP_fwDbscLQ3zaE5RQmjjBXUMo",
-  authDomain: "onguard-6f7cb.firebaseapp.com",
+  apiKey: "AIzaSyBkCJJ18SbIRaFkYImXtXN_7A-fm1kT9Qg",
+  authDomain: "onguard-60bc2.firebaseapp.com",
   databaseURL:
-    "https://onguard-6f7cb-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "onguard-6f7cb",
-  storageBucket: "onguard-6f7cb.firebasestorage.app",
-  messagingSenderId: "245232388429",
-  appId: "1:245232388429:web:93721d2372bf679b574f04",
-  measurementId: "G-GXZTMXXWKT",
+    "https://onguard-60bc2-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "onguard-60bc2",
+  storageBucket: "onguard-60bc2.firebasestorage.app",
+  messagingSenderId: "376221102604",
+  appId: "1:376221102604:web:d25fc97b8200a4ad073429",
 };
 
 // Initialize Firebase
@@ -60,7 +71,21 @@ const signIn = async (email, password) => {
       email,
       password
     );
+
+    const userRef = doc(firestore, "users", userCredential.user.uid);
+    const userSnap = await getDoc(userRef);
+
     console.log("User logged in:", userCredential.user);
+
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+      console.log(userData);
+      if (!userData.isAdmin) {
+        return { ...userData, role: "user" }; // Default role
+      } else {
+        return { ...userData, role: "admin" };
+      } // Return user with role
+    }
   } catch (error) {
     console.error("Error logging in:", error.message);
     throw error;
@@ -77,4 +102,30 @@ const logOut = async () => {
   }
 };
 
-export { auth, signUp, signIn, logOut, firestore, storage, messaging };
+const getUserInfo = async (uid) => {
+  try {
+    const userRef = doc(firestore, "users", uid);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+      return userSnap.data();
+    } else {
+      console.log("No user data found.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching user info:", error.message);
+    return null;
+  }
+};
+
+export {
+  auth,
+  signUp,
+  signIn,
+  logOut,
+  firestore,
+  storage,
+  messaging,
+  getUserInfo,
+};
