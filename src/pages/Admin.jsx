@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { logOut } from "../lib/firebase";
+import { useEffect, useState } from "react";
+import { logOut, checkAdmin } from "../lib/firebase";
 import { useNavigate } from "react-router-dom";
 
 import styles from "../css/Admin.module.css";
@@ -34,6 +34,14 @@ const Admin = () => {
       console.error("Error logging out:", error.message);
     }
   };
+
+  const redirect = () => {
+    navigate("/");
+  };
+
+  useEffect(() => {
+    checkAdmin(redirect);
+  }, []);
 
   return (
     <div className={styles.Admin}>

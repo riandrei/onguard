@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut, // Import signOut for logging out
+  onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
@@ -119,6 +120,25 @@ const getUserInfo = async (uid) => {
   }
 };
 
+const checkAdmin = async (redirect) => {
+  onAuthStateChanged(auth, async (user) => {
+    console.log(user);
+    if (!user) {
+      redirect("/"); // Redirect if not logged in
+      return;
+    }
+
+    const userRef = doc(firestore, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists() || userSnap.data().role !== "admin") {
+      redirect("/"); // Redirect if not admin
+    } else {
+      setLoading(false);
+    }
+  });
+};
+
 export {
   auth,
   signUp,
@@ -128,4 +148,5 @@ export {
   storage,
   messaging,
   getUserInfo,
+  checkAdmin,
 };
