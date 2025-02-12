@@ -131,7 +131,10 @@ const checkAdmin = async (redirect) => {
     const userRef = doc(firestore, "users", user.uid);
     const userSnap = await getDoc(userRef);
 
-    if (!userSnap.exists() || userSnap.data().role !== "admin") {
+    console.log(userSnap.data());
+    console.log(userSnap.exists());
+
+    if (!userSnap.exists() || !userSnap.data().isAdmin) {
       redirect("/"); // Redirect if not admin
     } else {
       setLoading(false);
